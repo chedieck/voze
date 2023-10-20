@@ -1,4 +1,4 @@
-import { runScript } from '../../../scripts/jsscript.js'
+import { runScript } from '../../../scripts/script.js'
 
 
 /** @type {import('./$types').RequestHandler} */
