@@ -1,5 +1,5 @@
 <script>
-	import Counter from './Counter.svelte';
+	import TextToAudio from './TextToAudio.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 </script>
@@ -20,11 +20,7 @@
 
 	</h1>
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+	<TextToAudio/>
 </section>
 
 <style>

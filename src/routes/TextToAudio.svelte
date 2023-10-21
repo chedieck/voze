@@ -1,16 +1,37 @@
 <script lang="ts">
 	let text = '';
+	let lang = 'en';
 	let error = '';
+
+	const languages = [
+		{ name: "English", code: "en" },
+		{ name: "Português", code: "pt-br" },
+		{ name: "Русcкий", code: "ru" }
+	];
 
 	function getMP3() {
 		if (text.length > 5000) {
 			error = 'At most 5000 chars.'
 		}
-		fetch('/api/tomp3')
+		fetch('/api/tomp3', {
+			method: 'POST',
+			headers: {
+				"Content-type": "application/json"
+			},
+			body: JSON.stringify({
+				text,
+				lang
+			})
+		})
 	}
 </script>
 
 <div class="counter">
+		<select bind:value={lang}>
+  {#each languages as language}
+    <option value={language.code}>{language.name} ({language.code})</option>
+  {/each}
+</select>
 	<textarea bind:value={text}/>
 	<button on:click={() => getMP3()} aria-label="Get mp3">
 		MP3
