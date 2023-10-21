@@ -9,11 +9,29 @@
 		{ name: "Русcкий", code: "ru" }
 	];
 
-	function getMP3() {
+	async function startDownload(path: string) {
+		// Create an anchor element
+		const a = document.createElement('a');
+
+		// Set attributes to the anchor element
+		a.href = path;
+		a.download = path.split('/').pop() || ''; // Extract file name from path
+
+		// Append the anchor to the DOM (not visible)
+		document.body.appendChild(a);
+
+		// Simulate a click to start download
+		a.click();
+
+		// Remove the anchor from the DOM
+		document.body.removeChild(a);
+	}
+
+	async function getMP3() {
 		if (text.length > 5000) {
 			error = 'At most 5000 chars.'
 		}
-		fetch('/api/tomp3', {
+		let res = await fetch('/api/tomp3', {
 			method: 'POST',
 			headers: {
 				"Content-type": "application/json"
@@ -23,6 +41,9 @@
 				lang
 			})
 		})
+		const path = await res.text()
+		console.log('peguei no comp', path)
+		startDownload(path)
 	}
 </script>
 
