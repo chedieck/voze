@@ -11,7 +11,7 @@
 	</main>
 
 	<footer>
-		<p><a href="https://chedieck.com">chedieck</a></p>
+		<p><a href="https://chedieck.com" target="_blank">CHEDIECK</a></p>
 	</footer>
 </div>
 

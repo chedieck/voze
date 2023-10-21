@@ -2,13 +2,16 @@
 	let text = '';
 	let lang = 'en';
 	let error = '';
-	let creating = false;
+	let creating: boolean = false;
+	let buttonDisabled = false;
 
 	const languages = [
 		{ name: "English", code: "en" },
 		{ name: "Português", code: "pt-br" },
 		{ name: "Русcкий", code: "ru" }
 	];
+
+	const maxLength = 5000
 
 	async function startDownload(path: string) {
 		// Create an anchor element
@@ -30,9 +33,15 @@
 	}
 
 	async function getMP3() {
-		if (text.length > 5000) {
-			error = 'At most 5000 chars.'
+		if (text.length > maxLength) {
+			error = `${maxLength} chars limit exceeded.`
+			return
 		}
+		if (text.length === 0) {
+			error = 'Input should not be empty.'
+			return
+		}
+		error = ''
 		creating = true
 		let res = await fetch('/api/tomp3', {
 			method: 'POST',
@@ -48,15 +57,27 @@
 		console.log('peguei no comp', path)
 		startDownload(path)
 	}
+
+	$: {
+		if (text.length > maxLength) {
+			error = `${text.length}/${maxLength} chars limit exceeded.`
+			buttonDisabled = true
+		} else {
+			error = "";
+			buttonDisabled = false
+		}
+	}
+	$: creating, buttonDisabled = creating
+
 </script>
 <div class="mainInput">
-	<textarea class="text-area" bind:value={text}></textarea>
+	<textarea autofocus class="text-area" bind:value={text}></textarea>
 	<select class="language-select" bind:value={lang}>
 	{#each languages as language}
 		<option value={language.code}>{language.name} ({language.code})</option>
 	{/each}
 	</select>
-	<button disabled={creating} class="mp3-button {creating ? 'center-spinner' : ''}" on:click={() => getMP3()} aria-label="Get mp3">
+	<button disabled={buttonDisabled} class="mp3-button {creating ? 'center-spinner' : ''}" on:click={() => getMP3()} aria-label="Get mp3">
 		{#if creating}
 			<div class="spinner"></div>
 		{:else}
@@ -65,6 +86,9 @@
 	</button>
 	{#if creating}
 		<p class="creating-text">Your mp3 is being created and will be downloaded automatically.</p>
+	{/if}
+	{#if error}
+		<p class="error-text">{error}</p>
 	{/if}
 </div>
 
@@ -80,34 +104,54 @@
 	}
 
 	.language-select {
-		width: 50%;
+		width: 40%;
 		height: 2.5rem;
 		font-size: 1rem;
-		margin-bottom: 1rem;
-		border: 1px solid #ccc;
+		margin-bottom: 3rem;
+		background-color: var(--color-bg-3);
+		border: none;
+		text-align: center; /* Center-aligns the text */
+		border-radius: 22px;
 	}
 
 	.text-area {
 		width: 100%;
 		height: 15rem;
+		font-size: 1.2rem;
 		resize: none;
-		border: 1px solid #ccc;
-		margin-bottom: 1rem;
+		margin-bottom: 3rem;
+		background-color: rgba(0,0,0,0.3);
+		padding: 4px;
+		color: #fff;
+		border-radius: 4px;
+	}
+
+	.text-area[focus] {
+		border: 4px solid var(--color-bg-2);
 	}
 
 	.mp3-button {
-		width: 50%;
-		height: 2.5rem;
+		width: 60%;
+		height: 4rem;
 		font-size: 1.2rem;
 		cursor: pointer;
 		background-color: #000;
 		color: #fff;
+		background-color: var(--color-bg-4);
 		border: none;
+		border-radius: 22px;
 	}
 
 	.mp3-button[disabled] {
 		background-color: #ccc;
 		cursor: not-allowed;
+	}
+
+	.error-text {
+		font-size: 0.9rem;
+		color: var(--color-bg-4);
+		margin-top: 0.5rem;
+		text-align: center;
 	}
 
 	.creating-text {

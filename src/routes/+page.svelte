@@ -1,7 +1,6 @@
 <script>
 	import TextToAudio from './TextToAudio.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import banner from '$lib/images/banner.png';
 </script>
 
 <svelte:head>
@@ -10,15 +9,13 @@
 </svelte:head>
 
 <section>
-	<h1>
+	<div>
 		<span class="logo">
 			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
+				<img src={banner} alt="banner" />
 			</picture>
 		</span>
-
-	</h1>
+	</div>
 
 	<TextToAudio/>
 </section>
@@ -37,18 +34,16 @@
 	}
 
 	.logo {
+		justify-content: center;
+		align-items: center;
 		display: block;
-		position: relative;
 		width: 100%;
 		height: 0;
 		padding: 0 0 calc(100% * 495 / 2048) 0;
+		margin-bottom: 10rem;
 	}
 
 	.logo img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
 		display: block;
 	}
 </style>
