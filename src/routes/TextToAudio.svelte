@@ -106,12 +106,13 @@
 	.language-select {
 		width: 40%;
 		height: 2.5rem;
-		font-size: 1rem;
+		font-size: 1.5rem;
 		margin-bottom: 3rem;
-		background-color: var(--color-bg-3);
+		background-color: rgba(0,0,0,0.3);
+		color: white;
 		border: none;
 		text-align: center; /* Center-aligns the text */
-		border-radius: 22px;
+		border-radius: 2px;
 	}
 
 	.text-area {
@@ -139,7 +140,16 @@
 		color: #fff;
 		background-color: var(--color-bg-4);
 		border: none;
-		border-radius: 22px;
+		border-radius: 2px;
+		transition: transform 0.1s ease-in-out; /* Add transition effect */
+	}
+
+	.mp3-button:hover {
+		transform: scale(1.1); /* Scale up the button when hovered */
+	}
+
+	.mp3-button:active {
+		transform: scale(1); /* Scale back when clicked */
 	}
 
 	.mp3-button[disabled] {
