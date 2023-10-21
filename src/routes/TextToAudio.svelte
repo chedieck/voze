@@ -5,13 +5,15 @@
 	let creating: boolean = false;
 	let buttonDisabled = false;
 
+	import config from '../config.json'
+
 	const languages = [
 		{ name: "English", code: "en" },
 		{ name: "Português", code: "pt-br" },
 		{ name: "Русcкий", code: "ru" }
 	];
 
-	const maxLength = 5000
+	const maxLength = config.maxLength
 
 	async function startDownload(path: string) {
 		// Create an anchor element

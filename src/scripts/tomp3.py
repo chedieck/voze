@@ -3,6 +3,11 @@ from gtts import gTTS
 import time
 import math
 import string
+import json
+
+with open('src/config.json', 'r') as file:
+    config = json.load(file)
+max_length = config.get('maxLength', 0)
 
 if len(sys.argv) < 3:
     raise Exception("Missing arguments. Usage: `tomp3 <text_file> <lang>`")
@@ -12,6 +17,8 @@ lang = sys.argv[2]
 
 with open(textfile, "r") as f:
     text = f.read()
+    if len(text) > max_length:
+        raise Exception(f"Text exceeds {max_length} limit")
 
 def get_name():
     mili = math.floor(time.time() * 1000)
