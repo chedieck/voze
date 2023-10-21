@@ -11,7 +11,7 @@
 
 <section>
 	<h1>
-		<span class="welcome">
+		<span class="logo">
 			<picture>
 				<source srcset={welcome} type="image/webp" />
 				<img src={welcome_fallback} alt="Welcome" />
@@ -36,7 +36,7 @@
 		width: 100%;
 	}
 
-	.welcome {
+	.logo {
 		display: block;
 		position: relative;
 		width: 100%;
@@ -44,7 +44,7 @@
 		padding: 0 0 calc(100% * 495 / 2048) 0;
 	}
 
-	.welcome img {
+	.logo img {
 		position: absolute;
 		width: 100%;
 		height: 100%;

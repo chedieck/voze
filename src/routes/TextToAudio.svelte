@@ -46,56 +46,62 @@
 		startDownload(path)
 	}
 </script>
-
-<div class="counter">
-		<select bind:value={lang}>
-  {#each languages as language}
-    <option value={language.code}>{language.name} ({language.code})</option>
-  {/each}
-</select>
-	<textarea bind:value={text}/>
-	<button on:click={() => getMP3()} aria-label="Get mp3">
+<div class="mainInput">
+	<textarea class="text-area" bind:value={text}></textarea>
+	<select class="language-select" bind:value={lang}>
+	{#each languages as language}
+		<option value={language.code}>{language.name} ({language.code})</option>
+	{/each}
+	</select>
+	<button class="mp3-button" on:click={() => getMP3()} aria-label="Get mp3">
 		MP3
 	</button>
-
 </div>
 
 <style>
-	.counter {
+	.mainInput {
 		display: flex;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-		margin: 1rem 0;
-	}
-
-	.counter button {
-		width: 2em;
-		padding: 0;
-		display: flex;
+		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		border: 0;
-		background-color: transparent;
-		touch-action: manipulation;
-		font-size: 2rem;
+		justify-content: space-around;
+		margin: 1rem 0;
+		padding: 1rem;
+		width: 40em;
 	}
 
-	.counter button:hover {
-		background-color: var(--color-bg-1);
+	.language-select {
+		width: 50%;
+		height: 2.5rem;
+		font-size: 1rem;
+		margin-bottom: 1rem;
+		border: 1px solid #ccc;
 	}
 
-	svg {
-		width: 25%;
-		height: 25%;
+	.text-area {
+		width: 100%;
+		height: 5rem;
+		resize: none;
+		border: 1px solid #ccc;
+		margin-bottom: 1rem;
 	}
 
-	path {
-		vector-effect: non-scaling-stroke;
-		stroke-width: 2px;
-		stroke: #444;
+	.mp3-button {
+		width: 50%;
+		height: 2.5rem;
+		font-size: 1.2rem;
+		cursor: pointer;
+		background-color: #000;
+		color: #fff;
+		border: none;
 	}
 
-	.counter-viewport {
+	@media only screen and (max-width: 600px) {
+		.mainInput {
+			width: 90%;
+		}
+	}
+
+	.mainInput-viewport {
 		width: 8em;
 		height: 4em;
 		overflow: hidden;
@@ -103,7 +109,7 @@
 		position: relative;
 	}
 
-	.counter-viewport strong {
+	.mainInput-viewport strong {
 		position: absolute;
 		display: flex;
 		width: 100%;
@@ -115,7 +121,7 @@
 		justify-content: center;
 	}
 
-	.counter-digits {
+	.mainInput-digits {
 		position: absolute;
 		width: 100%;
 		height: 100%;
