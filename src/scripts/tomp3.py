@@ -17,10 +17,10 @@ def get_name():
     beginning = text.split()[0]
     if len(beginning) > 10:
         beginning = beginning[:10]
-    return f'{beginning}_{mili}.mp3'
+    return f'downloads/{beginning}_{mili}.mp3'
 
 g = gTTS(text, lang=lang)
 mp3_name = get_name()
-g.save(f'download/{mp3_name}')
 
-print (f'download/{get_name()}.mp3')
+g.save(mp3_name)
+print (mp3_name)
